@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Darden Collection" tests="2" time="0.889">
+  <testsuite name="Schedule" id="5172e3f5-9736-4395-86e5-fce64c7ba1f3" timestamp="2024-04-25T19:01:26.182Z" tests="0" failures="0" errors="0" time="0.531"/>
+  <testsuite name="Last Week" id="a3ae00db-48ec-467d-865f-02013fca807d" timestamp="2024-04-25T19:01:26.182Z" tests="0" failures="0" errors="1" time="0.358">
+    <system-err><![CDATA[Iteration: 0
+
+---
+testScriptError: Unexpected token '<' at 1:1
+<!DOCTYPE html>
+^
+---
+]]></system-err>
+  </testsuite>
+</testsuites>

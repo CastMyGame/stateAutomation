@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Darden Collection" tests="2" time="0.695">
+  <testsuite name="Schedule" id="bf062fa2-552c-4400-9781-8951b900c674" timestamp="2024-04-25T19:09:19.555Z" tests="0" failures="0" errors="0" time="0.485"/>
+  <testsuite name="Last Week" id="c67a2729-4ec5-4d3f-a3dd-683ec5ed3687" timestamp="2024-04-25T19:09:19.555Z" tests="0" failures="0" errors="0" time="0.210"/>
+</testsuites>

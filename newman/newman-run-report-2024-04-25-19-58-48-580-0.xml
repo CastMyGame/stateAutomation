@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Darden Collection" tests="2" time="0.000">
+  <testsuite name="Schedule" id="374a2dcd-f187-482c-86e4-7a776d5148ab" timestamp="2024-04-25T19:58:48.164Z" tests="0" failures="0" errors="2" time="0.000">
+    <system-err><![CDATA[Iteration: 0
+RequestError: TypeError [ERR_INVALID_CHAR]: Invalid character in header content ["Cookie"]
+    at ClientRequest.setHeader (node:_http_outgoing:651:3)
+    at new ClientRequest (node:_http_client:291:14)
+    at Object.request (node:https:358:10)
+    at Request.start (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\postman-request\request.js:965:32)
+    at Request.end (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\postman-request\request.js:1941:10)
+    at end (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\postman-request\request.js:741:14)
+    at C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\postman-request\request.js:755:9
+    at C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\postman-request\request.js:1898:5
+    at next (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\@postman\tough-cookie\lib\cookie.js:1475:9)
+    at C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\@postman\tough-cookie\lib\cookie.js:1463:9
+    at MemoryCookieStore.findCookies (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\@postman\tough-cookie\lib\memstore.js:109:5)
+    at MemoryCookieStore.findCookies (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\universalify\index.js:5:67)
+    at CookieJar.getCookies (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\@postman\tough-cookie\lib\cookie.js:1440:11)
+    at CookieJar.getCookies (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\universalify\index.js:5:67)
+    at CookieJar.getCookieString (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\@postman\tough-cookie\lib\cookie.js:1485:21)
+    at CookieJar.getCookieString (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\universalify\index.js:5:67)
+
+---
+testScriptError: Unexpected token u in JSON at position 0
+---
+]]></system-err>
+  </testsuite>
+  <testsuite name="Last Week" id="10e5603c-d5b5-474b-9cbf-a8548293642b" timestamp="2024-04-25T19:58:48.164Z" tests="0" failures="0" errors="2" time="0.000">
+    <system-err><![CDATA[Iteration: 0
+RequestError: TypeError [ERR_INVALID_CHAR]: Invalid character in header content ["Cookie"]
+    at ClientRequest.setHeader (node:_http_outgoing:651:3)
+    at new ClientRequest (node:_http_client:291:14)
+    at Object.request (node:https:358:10)
+    at Request.start (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\postman-request\request.js:965:32)
+    at Request.end (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\postman-request\request.js:1941:10)
+    at end (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\postman-request\request.js:741:14)
+    at C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\postman-request\request.js:755:9
+    at C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\postman-request\request.js:1898:5
+    at next (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\@postman\tough-cookie\lib\cookie.js:1475:9)
+    at C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\@postman\tough-cookie\lib\cookie.js:1463:9
+    at MemoryCookieStore.findCookies (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\@postman\tough-cookie\lib\memstore.js:109:5)
+    at MemoryCookieStore.findCookies (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\universalify\index.js:5:67)
+    at CookieJar.getCookies (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\@postman\tough-cookie\lib\cookie.js:1440:11)
+    at CookieJar.getCookies (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\universalify\index.js:5:67)
+    at CookieJar.getCookieString (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\@postman\tough-cookie\lib\cookie.js:1485:21)
+    at CookieJar.getCookieString (C:\Users\busin\OneDrive\Desktop\collectionRunner\node_modules\universalify\index.js:5:67)
+
+---
+testScriptError: Unexpected token u in JSON at position 0
+---
+]]></system-err>
+  </testsuite>
+</testsuites>

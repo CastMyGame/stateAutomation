@@ -1,0 +1,651 @@
+{
+	"info": {
+		"_postman_id": "92ca685c-6355-431f-991d-925259b543c9",
+		"name": "Power School SIS GETS ONLY",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34516716"
+	},
+	"item": [
+		{
+			"name": "Get - Reporting Studnet HTML test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the JSON response\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Save the response data directly to the responseData variable\r",
+							"pm.environment.set('responseData', JSON.stringify(jsonData));\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "{{session_cookies}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "draw",
+							"value": " 1",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][data]",
+							"value": " IncidentDate",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][name]",
+							"value": " IncidentDate",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][searchable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][orderable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][search][value]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][search][regex]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][visible]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][exportable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][filterable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][filter][type]",
+							"value": " date",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][format]",
+							"value": " d",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][sortEmptyLast]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][reverseSort]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][hidden]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][required]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][title]",
+							"value": " IncidentDate",
+							"type": "text"
+						},
+						{
+							"key": "columns[0][orderSource]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][data]",
+							"value": " IncidentNumber",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][name]",
+							"value": " IncidentNumber",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][searchable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][orderable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][search][value]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][search][regex]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][visible]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][exportable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][filterable]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][filter]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][format]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][sortEmptyLast]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][reverseSort]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][hidden]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][required]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][title]",
+							"value": " IncidentNumber",
+							"type": "text"
+						},
+						{
+							"key": "columns[1][orderSource]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][data]",
+							"value": " IncidentType",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][name]",
+							"value": " IncidentType",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][searchable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][orderable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][search][value]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][search][regex]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][visible]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][exportable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][filterable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][filter][type]",
+							"value": " select",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][format]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][sortEmptyLast]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][reverseSort]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][hidden]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][required]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][title]",
+							"value": " IncidentType",
+							"type": "text"
+						},
+						{
+							"key": "columns[2][orderSource]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][data]",
+							"value": " StudentName",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][name]",
+							"value": " StudentName",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][searchable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][orderable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][search][value]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][search][regex]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][visible]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][exportable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][filterable]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][filter]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][format]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][sortEmptyLast]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][reverseSort]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][hidden]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][required]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][title]",
+							"value": " StudentName",
+							"type": "text"
+						},
+						{
+							"key": "columns[3][orderSource]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][data]",
+							"value": " OrganizationName",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][name]",
+							"value": " OrganizationName",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][searchable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][orderable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][search][value]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][search][regex]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][visible]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][exportable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][filterable]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][filter][type]",
+							"value": " select",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][format]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][sortEmptyLast]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][reverseSort]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][hidden]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][required]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][title]",
+							"value": " OrganizationName",
+							"type": "text"
+						},
+						{
+							"key": "columns[4][orderSource]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][data]",
+							"value": " Action",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][name]",
+							"value": " Action",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][searchable]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][orderable]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][search][value]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][search][regex]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][visible]",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][exportable]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][filterable]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][filter]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][format]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][sortEmptyLast]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][reverseSort]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][hidden]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][required]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][title]",
+							"value": " Action",
+							"type": "text"
+						},
+						{
+							"key": "columns[5][orderSource]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "order[0][column]",
+							"value": " 0",
+							"type": "text"
+						},
+						{
+							"key": "order[0][dir]",
+							"value": " desc",
+							"type": "text"
+						},
+						{
+							"key": "start",
+							"value": " 0",
+							"type": "text"
+						},
+						{
+							"key": "length",
+							"value": " 100",
+							"type": "text"
+						},
+						{
+							"key": "search[value]",
+							"value": " ",
+							"type": "text"
+						},
+						{
+							"key": "search[regex]",
+							"value": " false",
+							"type": "text"
+						},
+						{
+							"key": "pages",
+							"value": " 10",
+							"type": "text"
+						},
+						{
+							"key": "pagingPreview",
+							"value": " true",
+							"type": "text"
+						},
+						{
+							"key": "StudentListId",
+							"value": " 175677",
+							"type": "text"
+						},
+						{
+							"key": "DistrictCalendarYearId",
+							"value": " 13916",
+							"type": "text"
+						},
+						{
+							"key": "incidentCategoryId",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www.psiwaresolution.com/Review360/reportingnotification/negotiate?negotiateVersion=1",
+					"protocol": "https",
+					"host": [
+						"www",
+						"psiwaresolution",
+						"com"
+					],
+					"path": [
+						"Review360",
+						"reportingnotification",
+						"negotiate"
+					],
+					"query": [
+						{
+							"key": "draw",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "DistrictCalendarYearId",
+							"value": "13916",
+							"disabled": true
+						},
+						{
+							"key": "incidentCategoryId",
+							"value": "\n",
+							"disabled": true
+						},
+						{
+							"key": "negotiateVersion",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

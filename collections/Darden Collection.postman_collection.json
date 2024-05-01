@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "f70a252d-caf4-43b1-aaf2-2f723a26c15d",
+		"name": "Darden Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34516716"
+	},
+	"item": [
+		{
+			"name": "Schedule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"// Parse the JSON response\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Initialize an array to store the shifts data in environment variable\r",
+							"var shiftsData = pm.environment.get('shiftsData');\r",
+							"shiftsData = shiftsData ? JSON.parse(shiftsData) : [];\r",
+							"\r",
+							"// Assuming the response is an array of objects, you can loop through each object\r",
+							"jsonData.forEach(function(shift) {\r",
+							"    var shiftData = {\r",
+							"        restRequiredLaborId: shift.restRequiredLaborId,\r",
+							"        restaurantId: shift.restaurantId,\r",
+							"        startDateTime: shift.startDateTime,\r",
+							"        endDateTime: shift.endDateTime,\r",
+							"        jobClass: shift.jobClass\r",
+							"    };\r",
+							"    // Add each shift data to the shiftsData array\r",
+							"    shiftsData.push(shiftData);\r",
+							"});\r",
+							"\r",
+							"// Update the shiftsData array in the environment variable\r",
+							"pm.environment.set('shiftsData', JSON.stringify(shiftsData));\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Cookie",
+						"value": "{{session_token}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "https://myshift.darden.com/api/v1/corporations/TOG/restaurants/1265/team-members/101845319/shifts?shiftStartDate=2024-04-22\n",
+					"protocol": "https",
+					"host": [
+						"myshift",
+						"darden",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"corporations",
+						"TOG",
+						"restaurants",
+						"1265",
+						"team-members",
+						"101845319",
+						"shifts"
+					],
+					"query": [
+						{
+							"key": "shiftStartDate",
+							"value": "2024-04-22\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Last Week",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"// Parse the JSON response\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Initialize an array to store the shifts data in environment variable\r",
+							"var shiftsData = pm.environment.get('shiftsData');\r",
+							"shiftsData = shiftsData ? JSON.parse(shiftsData) : [];\r",
+							"\r",
+							"// Assuming the response is an array of objects, you can loop through each object\r",
+							"jsonData.forEach(function(shift) {\r",
+							"    var shiftData = {\r",
+							"        restRequiredLaborId: shift.restRequiredLaborId,\r",
+							"        restaurantId: shift.restaurantId,\r",
+							"        startDateTime: shift.startDateTime,\r",
+							"        endDateTime: shift.endDateTime,\r",
+							"        jobClass: shift.jobClass\r",
+							"    };\r",
+							"    // Add each shift data to the shiftsData array\r",
+							"    shiftsData.push(shiftData);\r",
+							"});\r",
+							"\r",
+							"// Update the shiftsData array in the environment variable\r",
+							"pm.environment.set('shiftsData', JSON.stringify(shiftsData));\r",
+							"\r",
+							"console.log('shiftsData: ', pm.environment.get('shiftsData'));\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Cookie",
+						"value": "{{session_token}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "https://myshift.darden.com/api/v1/corporations/TOG/restaurants/1265/team-members/101845319/shifts?shiftStartDate=2024-04-15\n",
+					"protocol": "https",
+					"host": [
+						"myshift",
+						"darden",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"corporations",
+						"TOG",
+						"restaurants",
+						"1265",
+						"team-members",
+						"101845319",
+						"shifts"
+					],
+					"query": [
+						{
+							"key": "shiftStartDate",
+							"value": "2024-04-15\n"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "sampleVar",
+			"value": ""
+		},
+		{
+			"key": "session_token",
+			"value": "session_token"
+		}
+	]
+}
