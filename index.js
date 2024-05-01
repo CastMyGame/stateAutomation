@@ -4,6 +4,7 @@ const newman = require('newman');
 const express = require('express'); 
 const { CreateGoogleEvent } = require('./functions/googleEventCreator');
 const puppeteer = require('puppeteer');
+const { send } = require('process');
 require("dotenv").config();
 
 
@@ -249,7 +250,10 @@ async.parallel(
   
 
 app.get('/sendIncident', async (req, res) => {
+    
     await browse();
+    // send.res(req.body)
+
   });
 
 
