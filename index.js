@@ -118,12 +118,10 @@ const runCollection = (res)=>{
 const PARALLEL_RUN_COUNT = 1;
 
 const collections = [   
-    'collections/Power School Test.postman_collection', 
+    'collections/save_incident.postman_collection', 
 ]
 
-const environments = [
-    'environments/darden.postman_environment.json',
-];
+
 
 const environment = environments[0];
 const collectionToRun = [];
@@ -170,12 +168,6 @@ for (let index = 0; index < collections.length; index++) {
             {
                 "key": "variable_key",
                 "value": "",
-                "type": "any",
-                "enabled": true
-            },
-            {
-                "key": "workWeek",
-                "value": date,
                 "type": "any",
                 "enabled": true
             },
@@ -255,15 +247,10 @@ async.parallel(
 
 
   
-browse();
 
-// app.get('/poll', async (req, res) => {
-//     await browse(res);
-//   });
-
-//   app.get('/run', async (req, res) => {
-//     runCollection(res)
-//   });
+app.get('/sendIncident', async (req, res) => {
+    await browse();
+  });
 
 
 
