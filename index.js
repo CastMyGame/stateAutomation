@@ -89,6 +89,8 @@ const sendIncident = async (req, res, retryCount = 0) => {
         const client = await newPage.target().createCDPSession();
         const cook = (await client.send('Network.getAllCookies')).cookies;
 
+
+
             const cookies = await newPage.cookies();
             
             console.log(cookies)
@@ -101,7 +103,7 @@ const sendIncident = async (req, res, retryCount = 0) => {
             Three60ReviewCookies = filteredCookies.map(cookie => `${cookie.name}=${cookie.value}`).join('; ');
             console.log(Three60ReviewCookies)
             if (Three60ReviewCookies) {
-                // await browser.close();
+                await browser.close();
                 runCollection(req, res);
             } else {
                 await browser.close();
@@ -196,13 +198,7 @@ parallelCollectionRun = function (done) {
 
                 }
                 var responseData = data.executions[0].result.environment.values.reference.responseData.value
-                // res.json({ responseData });
                 console.log("RESPONSE", responseData)
-
-            
-
-
-
 
 
 
@@ -234,19 +230,17 @@ async.parallel(
 
 app.use(bodyParser.json());
 
-app.post('/sendIncident', async(req, res) => {
-    // Extract the JSON data from the request body
-    const requestData = req.body;
-   const response = await sendIncident(req)
-    // Send the extracted data back in the response
-    res.json(response);
+app.post('/sendIncident', async (req, res) => {
+    try {
+        // Set a longer timeout for this specific request
+        req.setTimeout(300000); // 300,000 milliseconds = 5 minutes
+
+        const response = await sendIncident(req); // Wait for the sendIncident function to complete
+        res.json(response); // Send the response back to the client
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred' }); // Handle any errors that occur during the sendIncident function
+    }
 });
 
 
-  
-
-
-
-
- 
   app.listen(port, () => console.log(`Example app listening on port ${port}!`));
