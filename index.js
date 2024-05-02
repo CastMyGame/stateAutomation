@@ -5,6 +5,8 @@ const express = require('express');
 const { CreateGoogleEvent } = require('./functions/googleEventCreator');
 const puppeteer = require('puppeteer');
 const { send } = require('process');
+const bodyParser = require('body-parser');
+
 require("dotenv").config();
 
 
@@ -21,11 +23,11 @@ const MAX_RETRY_ATTEMPTS = 3; // Define the maximum number of retry attempts
 let powerhouseCookies;
 let Three60ReviewCookies;
 
-const browse = async (res, retryCount = 0) => {
+const sendIncident = async (req, res, retryCount = 0) => {
     try {
         const browser = await puppeteer.launch({
-            // headless: false,
-            // defaultViewport: null,
+            headless: false,
+            defaultViewport: null,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
@@ -66,35 +68,46 @@ const browse = async (res, retryCount = 0) => {
 
         await newPage.setCookie(...cookies);
 
-
         // Navigate to the second site
-        await newPage.goto('https://www.psiwaresolution.com/Review360/SSO/SAML2/Initiate?idpmetadata=https%3A%2F%2Fccsdschools.powerschool.com%3A443%2Fpowerschool-saml-sso%2Fmetadata%2FReview360Metadata.action');
-
-     
-    
-        // Continue with any other actions on the new page as needed
+        await newPage.goto('https://www.psiwaresolution.com/Review360/SSO/SAML2/Initiate?idpmetadata=https%3A%2F%2Fccsdschools.powerschool.com%3A443%2Fpowerschool-saml-sso%2Fmetadata%2FReview360Metadata.action', { waitUntil: 'networkidle2' })
 
 
 
-    
-  
+
+
+        await newPage.goto('https://www.psiwaresolution.com/Review360', { waitUntil: 'networkidle2' })
+
+      
+        await newPage.reload();
+
+
+        
         // Define a function to check for the SMSESSION cookie
         const checkCookieAndRunCollection = async () => {
-            await new Promise(resolve => setTimeout(resolve, 5000)); // Wait for 5 seconds
-            const cookies = await newPage.cookies();
-            console.log(cookies);
-            const Three60ReviewCookies = cookies;
+            await new Promise(resolve => setTimeout(resolve, 7000)); // Wait for 5 seconds
+            
+        const client = await newPage.target().createCDPSession();
+        const cook = (await client.send('Network.getAllCookies')).cookies;
 
+            const cookies = await newPage.cookies();
+            
+            console.log(cookies)
+
+            const filteredCookies = cookies.filter(cookie => cookie.name === 'R360Access' || cookie.name === 'user');
+
+            console.log(filteredCookies)
+
+
+            Three60ReviewCookies = filteredCookies.map(cookie => `${cookie.name}=${cookie.value}`).join('; ');
+            console.log(Three60ReviewCookies)
             if (Three60ReviewCookies) {
-                console.log('Cookies:', cookies);
-                await browser.close();
-                runCollection(res);
+                // await browser.close();
+                runCollection(req, res);
             } else {
-                console.error('SMSESSION Cookie not found.');
                 await browser.close();
                 if (retryCount < MAX_RETRY_ATTEMPTS) {
                     console.log(`Retrying (${retryCount + 1}/${MAX_RETRY_ATTEMPTS})...`);
-                    await browse(res, retryCount + 1);
+                    sendIncident(req, res, retryCount + 1); // Retry with updated retryCount
                 } else {
                     console.error('Max retry attempts reached. Exiting...');
                 }
@@ -111,10 +124,9 @@ const browse = async (res, retryCount = 0) => {
 
 
 
-
 //For Postman
 
-const runCollection = (res)=>{
+const runCollection = (req, res)=>{
 
 const PARALLEL_RUN_COUNT = 1;
 
@@ -124,37 +136,7 @@ const collections = [
 
 
 
-const environment = environments[0];
 const collectionToRun = [];
-
-const sessionTokenValue = `SMSESSION=${SESSION_TOKEN}`;
-const date = '2024-04-08'
-
-
-const jsonData = {
-    "Parties":[],
-    "Incident_IncidentTypeId":{"value":40,"text":"Positive Behavior Achievement"},
-    "Incident_IncidentConfigurationGroupId":207,
-    "Incident_VersionDate":{"date":"4/26/2024","time":null},
-    "Incident_IncidentDate":{"date":"03/06/2024","time":"11:00 AM"},
-    "Incident_ReportedById":{"value":2509677,"text":"Iverson, Justin"},
-    "IncidentParty_IncidentPartyId":-1,
-    "CurrentUser":{"value":2509677,"text":"Iverson, Justin"},
-    "IncidentParty_IncidentPartyTypeId":{"value":1,"text":""},
-    "IncidentParty_StudentId":{"value":4065723,"text":"Mack, Juel (41904)"},
-    "Incident_OccurredAtOrganizationId":{"value":5672,"text":"Burke High School"},
-    "Incident_LocationId":{"value":52,"text":"Classroom"},
-    "IncidentBehavior_LayoutFieldOptionId":[{"value":166470,"text":" Other Positive Behavior:","note":"","isPrimary":null,"isRemoved":false}],
-    "IncidentParty_Description":"I just wanted to send my appreciation for the effort and persistence Juel displayed in class today. There were several points during class that he seemed incredibly frustrated with the material but he continued to work without giving up. We definitely made some progress today and I am excited to see how much more progress we can make tomorrow",
-    "IncidentStaffResponse_LayoutFieldOptionId":[{"value":166484,"text":" Recognition"},{"value":166485,"text":" Reward"},{"value":166486,"text":" Other positive staff response:","note":""},{"value":166487,"text":" Parent Contact - Email","note":""}],
-    "IncidentTypeRole_IncidentRoleId":1,
-    "IsReadyToAssignActions":false,
-    "BehaviorRequiredForActions":true,
-    "IncidentParty_StudentNumber":"41904",
-    "IncidentParty_StudentGradeId":{"text":"9th Grade","value":9},
-    "IncidentParty_StudentOrganizationId":{"text":"Burke High School","value":5672},
-    "IncidentParty_StudentIsSpecialEducation":{"text":"No","value":false},"IncidentParty_StudentIs504":{"text":"No","value":false},"IncidentParty_StudentHomelessTypeId":{"text":"Not Homeless","value":1},"RuleInstanceToken":null}
-
 
 //proejct number : 219584338724
 
@@ -174,7 +156,7 @@ for (let index = 0; index < collections.length; index++) {
             },
             {
                 "key": "payload",
-                "value": jsonData,
+                "value": JSON.stringify(req.body),
                 "type": "any",
                 "enabled": true
             },
@@ -197,6 +179,8 @@ for (let index = 0; index < collections.length; index++) {
 
 
 
+console.log("-- request--- " + JSON.stringify(req.body) + "--end request");
+
 
 parallelCollectionRun = function (done) {
     for (let index=0; index < collectionToRun.length; index++){
@@ -212,7 +196,8 @@ parallelCollectionRun = function (done) {
 
                 }
                 var responseData = data.executions[0].result.environment.values.reference.responseData.value
-            console.log("RESPONSE", responseData)
+                // res.json({ responseData });
+                console.log("RESPONSE", responseData)
 
             
 
@@ -247,15 +232,15 @@ async.parallel(
 }
 
 
-  
+app.use(bodyParser.json());
 
-app.get('/sendIncident', async (req, res) => {
-    
-    await browse();
-    // send.res(req.body)
-
-  });
-
+app.post('/sendIncident', async(req, res) => {
+    // Extract the JSON data from the request body
+    const requestData = req.body;
+   const response = await sendIncident(req)
+    // Send the extracted data back in the response
+    res.json(response);
+});
 
 
   
