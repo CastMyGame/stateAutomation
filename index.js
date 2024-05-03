@@ -111,9 +111,9 @@ const GenerateToken = async ( retryCount = 0) => {
 
 
 //For Postman
-const RunCollection = (req, token) => {
+const RunCollection = (req, token, collection) => {
     return new Promise((resolve, reject) => {
-        const collections =  'collections/Power School Test.postman_collection' // Add .json extension
+        const collections =  `collections/${collection}.postman_collection` // Add .json extension
         
 
         const collectionToRun = {
@@ -172,12 +172,22 @@ app.use(bodyParser.json());
 
 app.post('/sendIncident', async (req, res) => {
     try {
-         const response = await RunCollection(req,Three60ReviewCookies); // Wait for the sendIncident function to complete
+         const response = await RunCollection(req,Three60ReviewCookies,"save_incident"); // Wait for the sendIncident function to complete
         res.json({success:true , data: response}); // Send the response back to the client
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
     }
 });
+
+app.post('/sendTestCall', async (req, res) => {
+    try {
+         const response = await RunCollection(req,Three60ReviewCookies,"Power School Test"); // Wait for the sendIncident function to complete
+        res.json({success:true , data: response}); // Send the response back to the client
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 
 
 app.get('/generate-token', async (req,res) => {
