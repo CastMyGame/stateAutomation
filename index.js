@@ -2,9 +2,7 @@ const path = require('path');
 const async = require('async');
 const newman = require('newman');
 const express = require('express'); 
-const { CreateGoogleEvent } = require('./functions/googleEventCreator');
 const puppeteer = require('puppeteer');
-const { send } = require('process');
 const bodyParser = require('body-parser');
 
 require("dotenv").config();
