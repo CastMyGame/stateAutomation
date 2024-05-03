@@ -16,7 +16,7 @@ const app = express();
 const port = parseInt(process.env.PORT) || 3008;
 
 let SESSION_TOKEN = "wmvnCvxh/e0UhsjQ/5VfYWLk/VMFULVx7g9yE+4UwfDbO9S1FnoxsvDl6pJMSqB/rPPgx5L4FP5bYoTVCMM7yK+ZvTQj3rDJFo/9xedNYhE+zeKB0zI8m4pBeTmNnfhnC/6u+XGy8fTmqdj1IIw2X8uqzBHUNwk5J8OoPs+ptcAK9EzLVVXa5bI65mWeZdNkvZblAJUaXUsJD/XOb4id7JSxZBASoK8V8mXLsl0FFvgd/B/ZzWWS9ZcQy8EiofQIsDAs9ZI+oTfGl/iydznBTsg/ktakkivys8N9u4T/prM1jzO2Zd1XqDuQbRbeVvEHeUkQbC389kAPQfXn4Vb225Rt+20wtU8WUG/I7dx9Eyl0Sd8nzQIB4WBcUE0ZtziVTOaiBUQ6YUMHux/ECJyMXmxq7L+5lUfsKectlsZhY9gj9V//QMy1DPgigJAXvO4o73W2itIELkF6vi8y9lhKyexrwUjHHZhKk40SCsewa868Ay5MdrsAKRJtJEDSDLgyedDqbtY2UIlijIzSKb/YfoY1B8wM7W8o4LSALpvOmM++KWnuaHtPGiPgNwaIZYE/tvCploSSxAt9Rx2yDpsMp8uunyoazdz0G8mD1MH0MW834WUICIRmHK8gHY+BUgVuvQPQMHMEwOInnLWwNOuWhKNzRzfCnt9lrkdrZS7mMos/EKsQVpRCeqyLtI5/MXaHa+FaImj4eWy1TCs9HUMuuGuC862HFvmCqsOqSk+qq9Zfmbo0PJoizWkDFUALX+Apz4SIzw9FM2jqnHWaixpPYbPCHKsjCd9+zw9yi2ZW4kxNqAmsm/nCVyAyJ9JmScAIBTIKjXg6z+wBTdpUyPv4acMgnPprRLL8PxYkdI+BGdUuk160ChszsWL5dxW6XMSHXacLyYie+zzAf49Y0DoKxzKiX1f4H1abbX6w+PXg2OFQTGbSItZ0WRct8K3a3nkg/i3MHrLduragENp7YjVyzg30LSlLr5vF6xZaZQdvAicyA2K6bUPZ9yNXaVsILIYAHIBGblb27T5wcgCOf6OKcMwPJLTMDrpHCQ6u3pak1/R7Vf61UsxwCupDrKxKSfREL/+CVVorfh2G1vcomGNC41avvrulS9/0bvg/L9MtHAUhwjj6WUCdFERRnG4gqDY5QNOlM6liRJ/yIAphHheiITnAEtRGXVKaCJsZ5EoQnk6gpaaIQ0J/Ql2js11sUrTWdJqiYMLBhYh5gHG/8/Lc/5biDc0JztHQ2FACFuYAlSeIpeOQndUrbBrKJWn+Mhnt9z7lMVUFc72rBuDdZFY8eI2kjWnAyGW3"
-
+let requestResponse;
 const MAX_RETRY_ATTEMPTS = 3; // Define the maximum number of retry attempts
 
 
@@ -24,10 +24,12 @@ let powerhouseCookies;
 let Three60ReviewCookies;
 
 const sendIncident = async (req, res, retryCount = 0) => {
+    console.log("Starting Browser")
     try {
         const browser = await puppeteer.launch({
-            headless: false,
-            defaultViewport: null,
+            headless: "new", // "new" instead of true
+       
+            // defaultViewport: null,
             args: [
                 "--disable-setuid-sandbox",
                 "--no-sandbox",
@@ -40,6 +42,8 @@ const sendIncident = async (req, res, retryCount = 0) => {
                     : puppeteer.executablePath(),
         });
         const page = await browser.newPage();
+        await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4500.0 Safari/537.36');
+
 
         // Navigate to the login page
         await page.goto('https://ccsdschools.powerschool.com/teachers/pw.html');
@@ -52,6 +56,9 @@ const sendIncident = async (req, res, retryCount = 0) => {
         await page.type('input[name="username"]', 'justin_iverson.c');
         await page.type('input[name="password"]', 'SmackDown+4');
         
+
+        console.log("Loging In")
+
         await Promise.all([
             page.click('#btnEnter'), // Click the login button
             page.waitForNavigation({ timeout: 60000 }), // Wait for navigation to complete (increased timeout)
@@ -65,6 +72,8 @@ const sendIncident = async (req, res, retryCount = 0) => {
 
         // Create a new page for the second site
         const newPage = await browser.newPage();
+        await newPage.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4500.0 Safari/537.36');
+
 
         await newPage.setCookie(...cookies);
 
@@ -116,6 +125,8 @@ const sendIncident = async (req, res, retryCount = 0) => {
             }
         };
 
+        console.log("Running Collection")
+
         // Wait for 5 seconds to allow time for cookies to load
         setTimeout(checkCookieAndRunCollection, 10000);
     } catch (error) {
@@ -133,7 +144,9 @@ const runCollection = (req, res)=>{
 const PARALLEL_RUN_COUNT = 1;
 
 const collections = [   
-    'collections/save_incident.postman_collection', 
+    // 'collections/save_incident.postman_collection', 
+    'collections/Power School Test.postman_collection', 
+
 ]
 
 
@@ -198,6 +211,7 @@ parallelCollectionRun = function (done) {
 
                 }
                 var responseData = data.executions[0].result.environment.values.reference.responseData.value
+                requestResponse  = responseData
                 console.log("RESPONSE", responseData)
 
 
@@ -237,6 +251,20 @@ app.post('/sendIncident', async (req, res) => {
 
         const response = await sendIncident(req); // Wait for the sendIncident function to complete
         res.json(response); // Send the response back to the client
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred' }); // Handle any errors that occur during the sendIncident function
+    }
+});
+
+app.get('/', async (req, res) => {
+    try {
+
+        res.json(`Welcome To Automation:
+${Three60ReviewCookies || "No Cookies Yet"}:
+${requestResponse || "No Response Yet"}
+`); // Send the response back to the client
+     
+
     } catch (error) {
         res.status(500).json({ error: 'An error occurred' }); // Handle any errors that occur during the sendIncident function
     }
