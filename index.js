@@ -144,8 +144,8 @@ const runCollection = (req, res)=>{
 const PARALLEL_RUN_COUNT = 1;
 
 const collections = [   
-    // 'collections/save_incident.postman_collection', 
-    'collections/Power School Test.postman_collection', 
+    'collections/save_incident.postman_collection', 
+    // 'collections/Power School Test.postman_collection', 
 
 ]
 
@@ -199,11 +199,15 @@ console.log("-- request--- " + JSON.stringify(req.body) + "--end request");
 
 parallelCollectionRun = function (done) {
     for (let index=0; index < collectionToRun.length; index++){
-        newman.run(collectionToRun[index], 
-            function (err) {
-                if (err) { throw err; }
-                console.log(collections[index]+' collection run complete!');
-            }).on('test',(error,data)=>{
+        newman.run({
+            collection: collectionToRun[index],
+            timeout: 600000  // 10 minutes in milliseconds
+        }, function (err) {
+            if (err) { 
+                throw err; 
+            }
+            console.log(collections[index] + ' collection run complete!');
+        }).on('test',(error,data)=>{
 
                 if(error){
                     console.log(error);
