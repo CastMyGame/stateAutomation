@@ -84,16 +84,11 @@ const sendIncident = async (req, res, retryCount = 0) => {
 
 
 
-        await newPage.goto('https://www.psiwaresolution.com/Review360', { waitUntil: 'networkidle2' })
+        await newPage.goto('https://www.psiwaresolution.com/Review360')
 
       
-        await newPage.reload();
-
-
-        
         // Define a function to check for the SMSESSION cookie
         const checkCookieAndRunCollection = async () => {
-            await new Promise(resolve => setTimeout(resolve, 7000)); // Wait for 5 seconds
             
         const client = await newPage.target().createCDPSession();
         const cook = (await client.send('Network.getAllCookies')).cookies;
@@ -102,12 +97,8 @@ const sendIncident = async (req, res, retryCount = 0) => {
 
             const cookies = await newPage.cookies();
             
-            console.log(cookies)
 
             const filteredCookies = cookies.filter(cookie => cookie.name === 'R360Access' || cookie.name === 'user');
-
-            console.log(filteredCookies)
-
 
             Three60ReviewCookies = filteredCookies.map(cookie => `${cookie.name}=${cookie.value}`).join('; ');
             console.log(Three60ReviewCookies)
@@ -128,7 +119,7 @@ const sendIncident = async (req, res, retryCount = 0) => {
         console.log("Running Collection")
 
         // Wait for 5 seconds to allow time for cookies to load
-        setTimeout(checkCookieAndRunCollection, 10000);
+        setTimeout(checkCookieAndRunCollection, 1000);
     } catch (error) {
         console.error('Error during browsing:', error);
     }
@@ -199,15 +190,11 @@ console.log("-- request--- " + JSON.stringify(req.body) + "--end request");
 
 parallelCollectionRun = function (done) {
     for (let index=0; index < collectionToRun.length; index++){
-        newman.run({
-            collection: collectionToRun[index],
-            timeout: 600000  // 10 minutes in milliseconds
-        }, function (err) {
-            if (err) { 
-                throw err; 
-            }
-            console.log(collections[index] + ' collection run complete!');
-        }).on('test',(error,data)=>{
+        newman.run(collectionToRun[index], 
+            function (err) {
+                if (err) { throw err; }
+                console.log(collections[index]+' collection run complete!');
+            }).on('test',(error,data)=>{
 
                 if(error){
                     console.log(error);
