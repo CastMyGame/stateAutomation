@@ -33,7 +33,7 @@ const RunCollectionController = async (req, res) => {
             const responseData = JSON.parse(jsonString);
             const title = responseData.title;
             const studentInfo = req.body.IncidentParty_StudentId.text;
-            const subbmitedTime = Date();
+            const subbmitedTime =  new Date();
 
             setIncidentSubmittedCurrentSession({title:title,student:studentInfo,timeStamp:subbmitedTime});
 
@@ -52,7 +52,6 @@ const SimpleDashboardController = async (req, res) => {
         const incidents = getIncidentSubmittedCurrentSession();
 
         // Define the HTML content based on the current values
-        const statusDot = currentStatus ? '<div style="width: 20px; height: 20px; background-color: green; border-radius: 50%; display: inline-block;"></div>' : '<div style="width: 20px; height: 20px; background-color: red; border-radius: 50%; display: inline-block;"></div>';
 
         // Send an HTML response with the status dot and token information
         res.send(`
