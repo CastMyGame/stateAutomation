@@ -7,8 +7,8 @@ router.get('/generate-token', generateTokenController);
 
 
 //Api To Save Incident From Reps to 360 Review
-router.get('/send-incident', (req,res,next)=>{
-    req.collectionName = 'send_incident';
+router.post('/send-incident', (req,res,next)=>{
+    req.collectionName = 'save_incident';
     next();
 
 }, RunCollectionController);
@@ -19,6 +19,9 @@ router.get('/poll-session', (req,res,next)=>{
     next();
 
 }, RunCollectionController);
+
+
+
 
 // Api to refresh token prior to expiration
 router.get('/refresh-session', (req,res,next)=>{

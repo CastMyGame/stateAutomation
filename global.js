@@ -3,6 +3,19 @@ const eventEmitter = new EventEmitter();
 
 let globalToken = ""
 let tokenStatus = false;
+let incidentSubmittedCurrentSession = []
+
+
+
+function setIncidentSubmittedCurrentSession(incident){
+     incidentSubmittedCurrentSession.push(incident)
+    eventEmitter.emit('incidentChange', incident); // Emit 'tokenChange' event with the new token
+
+}
+
+function getIncidentSubmittedCurrentSession(){
+    return incidentSubmittedCurrentSession.slice();
+}
 
 
 function setGlobalToken(token){
@@ -33,4 +46,4 @@ function onGlobalChange(callback) {
 
 
 
-module.exports = {onGlobalChange,setGlobalToken,getGlobalToken,setTokenStatus,getTokenStatus}
+module.exports = {onGlobalChange,setGlobalToken,getGlobalToken,setTokenStatus,getTokenStatus,setIncidentSubmittedCurrentSession,getIncidentSubmittedCurrentSession}
