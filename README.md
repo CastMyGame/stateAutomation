@@ -76,3 +76,21 @@ The `RunCollection` function allows you to execute a specified Postman collectio
 - save_incident.postman_collection: "submits incident to 360 using review360 api"
 - poll_session.postman_collection: "checks status of token and returns status boolean and remaning time"
 - ativate_session.postman_collection:"allows you to renew token as needed"
+
+
+### Instruction for Deployment
+Containerized with Docker and Pushed to run cloud
+1) docker build -t gcr.io/krowd-automation-newmen/stateautomation:v1 .
+2)  docker push gcr.io/krowd-automation-newmen/stateautomation:v1 
+3) gcloud run deploy calendar-service --image gcr.io/krowd-automation-newmen/stateautomation:v1 --platform managed
+
+
+https://www.psiwaresolution.com/Review360/Incident/New/teacher-managed
+
+https://www.psiwaresolution.com/Review360/Incident/New/teacher-referral-for-office-managed
+
+https://www.psiwaresolution.com/Review360/Incident/New/positive-behavior-achievement
+
+## saveIncident api still works. letws use taht still
+
+sample payload{"Parties":[],"Incident_IncidentTypeId":{"value":40,"text":"Positive Behavior Achievement"},"Incident_IncidentConfigurationGroupId":207,"Incident_VersionDate":{"date":"02/02/2025","time":null},"Incident_IncidentDate":{"date":"02/02/2025","time":"7:00 AM"},"Incident_ReportedById":{"value":2509677,"text":"Iverson, Justin"},"Incident_OccurredAtOrganizationId":{"value":6597,"text":"Simmons Pinckney Middle"},"IncidentParty_IncidentPartyId":-1,"CurrentUser":{"value":2509677,"text":"Iverson, Justin"},"IncidentParty_IncidentPartyTypeId":{"value":1,"text":""},"IncidentParty_StudentId":{"value":4596508,"text":"Amous, Sharon (17443)"},"Incident_LocationId":{"value":48,"text":"Arrival"},"IncidentBehavior_LayoutFieldOptionId":[{"value":322688,"text":" Being Respectful","isPrimary":null,"isRemoved":false}],"IncidentParty_Description":"Great Energy Coming To School, Complimented Others","IncidentStaffResponse_LayoutFieldOptionId":[{"value":322703,"text":" Recognition"}],"IncidentTypeRole_IncidentRoleId":1,"IsReadyToAssignActions":false,"BehaviorRequiredForActions":true,"IncidentParty_StudentNumber":"17443","IncidentParty_StudentGradeId":{"text":"7th Grade","value":7},"IncidentParty_StudentOrganizationId":{"text":"Simmons Pinckney Middle","value":6597},"IncidentParty_StudentIsSpecialEducation":{"text":"Yes","value":true},"IncidentParty_StudentIs504":{"text":"No","value":false},"IncidentParty_StudentHomelessTypeId":{"text":"Not Homeless","value":1},"RuleInstanceToken":null}
