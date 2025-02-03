@@ -4,8 +4,11 @@ const { setGlobalToken, getGlobalToken,setTokenStatus,getTokenStatus, getInciden
 
 
 const generateTokenController = async (req, res) => {
+    const user = req.headers['user'];
+    const password = req.headers['password']
+
     try {
-        const token = await GenerateToken();
+        const token = await GenerateToken(user,password);
        setGlobalToken(token);
         res.json({ success: true, token });
     } catch (error) {

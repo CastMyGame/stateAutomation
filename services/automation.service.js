@@ -7,7 +7,7 @@ require('dotenv').config(); // Load environment variables from .env file
 
 
 
-const GenerateToken = async ( retryCount = 0) => {
+const GenerateToken = async ( user,password,retryCount = 0) => {
     const MAX_RETRY_ATTEMPTS = 3; // Define the maximum number of retry attempts
     console.log("Starting Browser")
     try {
@@ -33,12 +33,11 @@ const GenerateToken = async ( retryCount = 0) => {
         // Navigate to the login page
         await page.goto('https://ccsdschools.powerschool.com/teachers/pw.html');
 
-        console.log('Password:', process.env.PASSWORD);
 
         
         // Fill in the login credentials and submit the form
-        await page.type('input[name="username"]', process.env.USER);
-        await page.type('input[name="password"]', process.env.PASSWORD);
+        await page.type('input[name="username"]', user || process.env.USER);
+        await page.type('input[name="password"]', password || process.env.PASSWORD);
         
         await Promise.all([
             page.click('#btnEnter'), // Click the login button
