@@ -87,7 +87,6 @@ const GenerateToken = async ( retryCount = 0) => {
                 await browser.close();
                 if (retryCount < MAX_RETRY_ATTEMPTS) {
                     console.log(`Retrying (${retryCount + 1}/${MAX_RETRY_ATTEMPTS})...`);
-                    // sendIncident(req, res, retryCount + 1); // Retry with updated retryCount
                 } else {
                     console.error('Max retry attempts reached. Exiting...');
                 }
